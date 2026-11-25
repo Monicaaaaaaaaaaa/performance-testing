@@ -1,0 +1,12 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1795181391560,88,Login,200,OK,Main Workload 1-1,text,true,,322,274,1,1,http://127.0.0.1:3000/api/auth/login,88,0,38
+1795181391977,5,Debug Sampler - extracted variables,200,OK,Main Workload 1-1,text,true,,620,0,1,1,null,0,0,0
+1795181392193,32,Get Profile,200,OK,Main Workload 1-1,text,false,,303,254,1,1,http://127.0.0.1:3000/api/users/101/profile,32,0,0
+1795181392431,49,Update Profile (PUT),200,OK,Main Workload 1-1,text,true,,303,297,1,1,http://127.0.0.1:3000/api/users/101/profile,49,0,0
+1795181392685,50,Get Account Balance,200,OK,Main Workload 1-1,text,true,,258,262,1,1,http://127.0.0.1:3000/api/accounts/ACC-1001/balance,50,0,0
+1795181392941,48,Get Transaction History,200,OK,Main Workload 1-1,text,true,,360,275,1,1,http://127.0.0.1:3000/api/accounts/ACC-1001/transactions?limit=5,48,0,0
+1795181393515,32,Initiate Transfer,201,Created,Main Workload 1-1,text,true,,355,383,1,1,http://127.0.0.1:3000/api/transfers,32,0,0
+1795181393752,33,Get Transfer Status,200,OK,Main Workload 1-1,text,true,,350,261,1,1,http://127.0.0.1:3000/api/transfers/TRF-13783e7813,33,0,0
+1795181392990,65,Transfer Flow (Transaction Controller),200,"Number of samples in transaction : 2, number of failing samples : 0",Main Workload 1-1,,true,,705,644,1,1,null,65,731,0
+1795181393992,33,Add Beneficiary (POST),201,Created,Main Workload 1-1,text,true,,287,321,1,1,http://127.0.0.1:3000/api/beneficiaries,33,0,0
+1795181394231,32,Delete Beneficiary (DELETE),200,OK,Main Workload 1-1,text,true,,247,285,1,1,http://127.0.0.1:3000/api/beneficiaries/BEN-a32b571b,32,0,0

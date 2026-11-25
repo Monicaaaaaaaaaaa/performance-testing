@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+<hashTree>
+<TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="TestJedi_Concurrency_Test" enabled="true"><stringProp name="TestPlan.comments">Race-condition and duplicate-submission tests. Thread groups run one after another.</stringProp><boolProp name="TestPlan.functional_mode">false</boolProp><boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp><boolProp name="TestPlan.serialize_threadgroups">true</boolProp><elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true"><collectionProp name="Arguments.arguments"/></elementProp><stringProp name="TestPlan.user_define_classpath"></stringProp></TestPlan>
+<hashTree>
+<Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true"><stringProp name="TestPlan.comments">Run: -Jmode=unsafe (expect FAIL = race detected) and -Jmode=safe (expect PASS).</stringProp><collectionProp name="Arguments.arguments"><elementProp name="protocol" elementType="Argument"><stringProp name="Argument.name">protocol</stringProp><stringProp name="Argument.value">${__P(protocol,http)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="host" elementType="Argument"><stringProp name="Argument.name">host</stringProp><stringProp name="Argument.value">${__P(host,127.0.0.1)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="port" elementType="Argument"><stringProp name="Argument.name">port</stringProp><stringProp name="Argument.value">${__P(port,3000)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="mode" elementType="Argument"><stringProp name="Argument.name">mode</stringProp><stringProp name="Argument.value">${__P(mode,unsafe)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="raceAccount" elementType="Argument"><stringProp name="Argument.name">raceAccount</stringProp><stringProp name="Argument.value">ACC-RACE</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="startBalance" elementType="Argument"><stringProp name="Argument.name">startBalance</stringProp><stringProp name="Argument.value">${__P(startBalance,1000)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="withdrawAmount" elementType="Argument"><stringProp name="Argument.name">withdrawAmount</stringProp><stringProp name="Argument.value">${__P(withdrawAmount,800)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="idemKey" elementType="Argument"><stringProp name="Argument.name">idemKey</stringProp><stringProp name="Argument.value">${__P(idemKey,RETRY-KEY-0001)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="expectedWithdrawals" elementType="Argument"><stringProp name="Argument.name">expectedWithdrawals</stringProp><stringProp name="Argument.value">${__P(expectedWithdrawals,1)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="expectedLedgerDebits" elementType="Argument"><stringProp name="Argument.name">expectedLedgerDebits</stringProp><stringProp name="Argument.value">${__P(expectedLedgerDebits,800)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp><elementProp name="expectedFinalBalance" elementType="Argument"><stringProp name="Argument.name">expectedFinalBalance</stringProp><stringProp name="Argument.value">${__P(expectedFinalBalance,200)}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp></collectionProp></Arguments>
+<hashTree>
+
+</hashTree>
+<ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true"><elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true"><collectionProp name="Arguments.arguments"/></elementProp><stringProp name="HTTPSampler.domain">${host}</stringProp><stringProp name="HTTPSampler.port">${port}</stringProp><stringProp name="HTTPSampler.protocol">${protocol}</stringProp><stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp><stringProp name="HTTPSampler.path"></stringProp><stringProp name="HTTPSampler.connect_timeout">5000</stringProp><stringProp name="HTTPSampler.response_timeout">15000</stringProp></ConfigTestElement>
+<hashTree>
+
+</hashTree>
+<SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp - reset known state" enabled="true"><stringProp name="ThreadGroup.on_sample_error">continue</stringProp><elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true"><boolProp name="LoopController.continue_forever">false</boolProp><stringProp name="LoopController.loops">1</stringProp></elementProp><stringProp name="ThreadGroup.num_threads">1</stringProp><stringProp name="ThreadGroup.ramp_time">1</stringProp><boolProp name="ThreadGroup.scheduler">false</boolProp><stringProp name="ThreadGroup.duration"></stringProp><stringProp name="ThreadGroup.delay"></stringProp><boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp></SetupThreadGroup>
+<hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Reset mock state" enabled="true"><stringProp name="TestPlan.comments"></stringProp><boolProp name="HTTPSampler.postBodyRaw">true</boolProp><elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments"><elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">{}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp></collectionProp></elementProp><stringProp name="HTTPSampler.path">/api/admin/reset</stringProp><stringProp name="HTTPSampler.method">POST</stringProp><boolProp name="HTTPSampler.follow_redirects">true</boolProp><boolProp name="HTTPSampler.auto_redirects">false</boolProp><boolProp name="HTTPSampler.use_keepalive">true</boolProp><boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp><stringProp name="HTTPSampler.embedded_url_re"></stringProp></HTTPSamplerProxy>
+<hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code = 200" enabled="true"><collectionProp name="Asserion.test_strings"><stringProp name="20499">200</stringProp></collectionProp><stringProp name="Assertion.custom_message"></stringProp><stringProp name="Assertion.test_field">Assertion.response_code</stringProp><boolProp name="Assertion.assume_success">false</boolProp><intProp name="Assertion.test_type">8</intProp></ResponseAssertion>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Set race account balance" enabled="true"><stringProp name="TestPlan.comments"></stringProp><boolProp name="HTTPSampler.postBodyRaw">true</boolProp><elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments"><elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">{"accountId":"${raceAccount}","balance":${startBalance}}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp></collectionProp></elementProp><stringProp name="HTTPSampler.path">/api/admin/set-balance</stringProp><stringProp name="HTTPSampler.method">POST</stringProp><boolProp name="HTTPSampler.follow_redirects">true</boolProp><boolProp name="HTTPSampler.auto_redirects">false</boolProp><boolProp name="HTTPSampler.use_keepalive">true</boolProp><boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp><stringProp name="HTTPSampler.embedded_url_re"></stringProp></HTTPSamplerProxy>
+<hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code = 200" enabled="true"><collectionProp name="Asserion.test_strings"><stringProp name="20499">200</stringProp></collectionProp><stringProp name="Assertion.custom_message"></stringProp><stringProp name="Assertion.test_field">Assertion.response_code</stringProp><boolProp name="Assertion.assume_success">false</boolProp><intProp name="Assertion.test_type">8</intProp></ResponseAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion - balance set" enabled="true"><stringProp name="JSON_PATH">$.data.account.balance</stringProp><stringProp name="EXPECTED_VALUE">${startBalance}</stringProp><boolProp name="JSONVALIDATION">true</boolProp><boolProp name="EXPECT_NULL">false</boolProp><boolProp name="INVERT">false</boolProp><boolProp name="ISREGEX">false</boolProp></JSONPathAssertion>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+
+</hashTree>
+<ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG1 - Concurrent withdrawals (race)" enabled="true"><stringProp name="TestPlan.comments">Two (or -Jracers=N) virtual users withdraw 800 from a 1000 balance at the same moment. Only ONE should succeed.</stringProp><stringProp name="ThreadGroup.on_sample_error">continue</stringProp><elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true"><boolProp name="LoopController.continue_forever">false</boolProp><stringProp name="LoopController.loops">1</stringProp></elementProp><stringProp name="ThreadGroup.num_threads">${__P(racers,2)}</stringProp><stringProp name="ThreadGroup.ramp_time">0</stringProp><boolProp name="ThreadGroup.scheduler">false</boolProp><stringProp name="ThreadGroup.duration"></stringProp><stringProp name="ThreadGroup.delay"></stringProp><boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp></ThreadGroup>
+<hashTree>
+<HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - JSON" enabled="true"><stringProp name="TestPlan.comments"></stringProp><collectionProp name="HeaderManager.headers"><elementProp name="" elementType="Header"><stringProp name="Header.name">Content-Type</stringProp><stringProp name="Header.value">application/json</stringProp></elementProp><elementProp name="" elementType="Header"><stringProp name="Header.name">Accept</stringProp><stringProp name="Header.value">application/json</stringProp></elementProp></collectionProp></HeaderManager>
+<hashTree>
+
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login" enabled="true"><stringProp name="TestPlan.comments"></stringProp><boolProp name="HTTPSampler.postBodyRaw">true</boolProp><elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments"><elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">{"username":"race@example.test","password":"RacePassword01"}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp></collectionProp></elementProp><stringProp name="HTTPSampler.path">/api/auth/login</stringProp><stringProp name="HTTPSampler.method">POST</stringProp><boolProp name="HTTPSampler.follow_redirects">true</boolProp><boolProp name="HTTPSampler.auto_redirects">false</boolProp><boolProp name="HTTPSampler.use_keepalive">true</boolProp><boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp><stringProp name="HTTPSampler.embedded_url_re"></stringProp></HTTPSamplerProxy>
+<hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code = 200" enabled="true"><collectionProp name="Asserion.test_strings"><stringProp name="20499">200</stringProp></collectionProp><stringProp name="Assertion.custom_message"></stringProp><stringProp name="Assertion.test_field">Assertion.response_code</stringProp><boolProp name="Assertion.assume_success">false</boolProp><intProp name="Assertion.test_type">8</intProp></ResponseAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - accessToken" enabled="true"><stringProp name="JSONPostProcessor.referenceNames">accessToken</stringProp><stringProp name="JSONPostProcessor.jsonPathExprs">$.data.accessToken</stringProp><stringProp name="JSONPostProcessor.match_numbers">1</stringProp><stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp></JSONPostProcessor>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Withdraw (synchronised)" enabled="true"><stringProp name="TestPlan.comments">All racers wait at the Synchronizing Timer, then fire together. Business rule: balance must never go negative / overdraft.</stringProp><boolProp name="HTTPSampler.postBodyRaw">true</boolProp><elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments"><elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">{"amount":${withdrawAmount}}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp></collectionProp></elementProp><stringProp name="HTTPSampler.path">/api/accounts/${raceAccount}/withdraw?mode=${mode}</stringProp><stringProp name="HTTPSampler.method">POST</stringProp><boolProp name="HTTPSampler.follow_redirects">true</boolProp><boolProp name="HTTPSampler.auto_redirects">false</boolProp><boolProp name="HTTPSampler.use_keepalive">true</boolProp><boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp><stringProp name="HTTPSampler.embedded_url_re"></stringProp></HTTPSamplerProxy>
+<hashTree>
+<HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Authorization" enabled="true"><stringProp name="TestPlan.comments"></stringProp><collectionProp name="HeaderManager.headers"><elementProp name="" elementType="Header"><stringProp name="Header.name">Authorization</stringProp><stringProp name="Header.value">Bearer ${accessToken}</stringProp></elementProp></collectionProp></HeaderManager>
+<hashTree>
+
+</hashTree>
+<SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer (release racers together)" enabled="true"><stringProp name="groupSize">${__P(racers,2)}</stringProp><longProp name="timeoutInMs">10000</longProp></SyncTimer>
+<hashTree>
+
+</hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code is 200 or 422 (both are legitimate answers)" enabled="true"><collectionProp name="Asserion.test_strings"><stringProp name="4355">^(200|422)$</stringProp></collectionProp><stringProp name="Assertion.custom_message"></stringProp><stringProp name="Assertion.test_field">Assertion.response_code</stringProp><boolProp name="Assertion.assume_success">true</boolProp><intProp name="Assertion.test_type">1</intProp></ResponseAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - newBalance (reported by this response)" enabled="true"><stringProp name="JSONPostProcessor.referenceNames">newBalance</stringProp><stringProp name="JSONPostProcessor.jsonPathExprs">$.data.newBalance</stringProp><stringProp name="JSONPostProcessor.match_numbers">1</stringProp><stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp></JSONPostProcessor>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+
+</hashTree>
+<ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG2 - Duplicate submission with the same Idempotency-Key" enabled="true"><stringProp name="TestPlan.comments"></stringProp><stringProp name="ThreadGroup.on_sample_error">continue</stringProp><elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true"><boolProp name="LoopController.continue_forever">false</boolProp><stringProp name="LoopController.loops">1</stringProp></elementProp><stringProp name="ThreadGroup.num_threads">${__P(racers,2)}</stringProp><stringProp name="ThreadGroup.ramp_time">0</stringProp><boolProp name="ThreadGroup.scheduler">false</boolProp><stringProp name="ThreadGroup.duration"></stringProp><stringProp name="ThreadGroup.delay"></stringProp><boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp></ThreadGroup>
+<hashTree>
+<HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - JSON" enabled="true"><stringProp name="TestPlan.comments"></stringProp><collectionProp name="HeaderManager.headers"><elementProp name="" elementType="Header"><stringProp name="Header.name">Content-Type</stringProp><stringProp name="Header.value">application/json</stringProp></elementProp><elementProp name="" elementType="Header"><stringProp name="Header.name">Accept</stringProp><stringProp name="Header.value">application/json</stringProp></elementProp></collectionProp></HeaderManager>
+<hashTree>
+
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login" enabled="true"><stringProp name="TestPlan.comments"></stringProp><boolProp name="HTTPSampler.postBodyRaw">true</boolProp><elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments"><elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">{"username":"user01@example.test","password":"TestPassword01"}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp></collectionProp></elementProp><stringProp name="HTTPSampler.path">/api/auth/login</stringProp><stringProp name="HTTPSampler.method">POST</stringProp><boolProp name="HTTPSampler.follow_redirects">true</boolProp><boolProp name="HTTPSampler.auto_redirects">false</boolProp><boolProp name="HTTPSampler.use_keepalive">true</boolProp><boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp><stringProp name="HTTPSampler.embedded_url_re"></stringProp></HTTPSamplerProxy>
+<hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code = 200" enabled="true"><collectionProp name="Asserion.test_strings"><stringProp name="20499">200</stringProp></collectionProp><stringProp name="Assertion.custom_message"></stringProp><stringProp name="Assertion.test_field">Assertion.response_code</stringProp><boolProp name="Assertion.assume_success">false</boolProp><intProp name="Assertion.test_type">8</intProp></ResponseAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - accessToken" enabled="true"><stringProp name="JSONPostProcessor.referenceNames">accessToken</stringProp><stringProp name="JSONPostProcessor.jsonPathExprs">$.data.accessToken</stringProp><stringProp name="JSONPostProcessor.match_numbers">1</stringProp><stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp></JSONPostProcessor>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Initiate Transfer (same Idempotency-Key)" enabled="true"><stringProp name="TestPlan.comments">Simulates a client retrying the same request. The debit must be applied once.</stringProp><boolProp name="HTTPSampler.postBodyRaw">true</boolProp><elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments"><elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">{"fromAccount":"ACC-1001","toAccount":"ACC-1002","amount":50}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp></collectionProp></elementProp><stringProp name="HTTPSampler.path">/api/transfers</stringProp><stringProp name="HTTPSampler.method">POST</stringProp><boolProp name="HTTPSampler.follow_redirects">true</boolProp><boolProp name="HTTPSampler.auto_redirects">false</boolProp><boolProp name="HTTPSampler.use_keepalive">true</boolProp><boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp><stringProp name="HTTPSampler.embedded_url_re"></stringProp></HTTPSamplerProxy>
+<hashTree>
+<HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Headers - Authorization + Idempotency-Key" enabled="true"><stringProp name="TestPlan.comments"></stringProp><collectionProp name="HeaderManager.headers"><elementProp name="" elementType="Header"><stringProp name="Header.name">Authorization</stringProp><stringProp name="Header.value">Bearer ${accessToken}</stringProp></elementProp><elementProp name="" elementType="Header"><stringProp name="Header.name">Idempotency-Key</stringProp><stringProp name="Header.value">${idemKey}</stringProp></elementProp></collectionProp></HeaderManager>
+<hashTree>
+
+</hashTree>
+<SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer (release racers together)" enabled="true"><stringProp name="groupSize">${__P(racers,2)}</stringProp><longProp name="timeoutInMs">10000</longProp></SyncTimer>
+<hashTree>
+
+</hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code is 200 or 201" enabled="true"><collectionProp name="Asserion.test_strings"><stringProp name="6463">^20[01]$</stringProp></collectionProp><stringProp name="Assertion.custom_message"></stringProp><stringProp name="Assertion.test_field">Assertion.response_code</stringProp><boolProp name="Assertion.assume_success">false</boolProp><intProp name="Assertion.test_type">1</intProp></ResponseAssertion>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+
+</hashTree>
+<PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown - independent verification of final state" enabled="true"><stringProp name="ThreadGroup.on_sample_error">continue</stringProp><elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true"><boolProp name="LoopController.continue_forever">false</boolProp><stringProp name="LoopController.loops">1</stringProp></elementProp><stringProp name="ThreadGroup.num_threads">1</stringProp><stringProp name="ThreadGroup.ramp_time">1</stringProp><boolProp name="ThreadGroup.scheduler">false</boolProp><stringProp name="ThreadGroup.duration"></stringProp><stringProp name="ThreadGroup.delay"></stringProp><boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp></PostThreadGroup>
+<hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="VERIFY race account (out-of-band admin endpoint)" enabled="true"><stringProp name="TestPlan.comments">Reads the ledger directly rather than trusting the withdraw responses.</stringProp><elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true"><collectionProp name="Arguments.arguments"/></elementProp><stringProp name="HTTPSampler.path">/api/admin/state?accountId=${raceAccount}</stringProp><stringProp name="HTTPSampler.method">GET</stringProp><boolProp name="HTTPSampler.follow_redirects">true</boolProp><boolProp name="HTTPSampler.auto_redirects">false</boolProp><boolProp name="HTTPSampler.use_keepalive">true</boolProp><boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp><stringProp name="HTTPSampler.embedded_url_re"></stringProp></HTTPSamplerProxy>
+<hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code = 200" enabled="true"><collectionProp name="Asserion.test_strings"><stringProp name="20499">200</stringProp></collectionProp><stringProp name="Assertion.custom_message"></stringProp><stringProp name="Assertion.test_field">Assertion.response_code</stringProp><boolProp name="Assertion.assume_success">false</boolProp><intProp name="Assertion.test_type">8</intProp></ResponseAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="EXPECT exactly ${expectedWithdrawals} debit entries in ledger" enabled="true"><stringProp name="JSON_PATH">$.data.withdrawals</stringProp><stringProp name="EXPECTED_VALUE">${expectedWithdrawals}</stringProp><boolProp name="JSONVALIDATION">true</boolProp><boolProp name="EXPECT_NULL">false</boolProp><boolProp name="INVERT">false</boolProp><boolProp name="ISREGEX">false</boolProp></JSONPathAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="EXPECT ledger debits total ${expectedLedgerDebits}" enabled="true"><stringProp name="JSON_PATH">$.data.ledgerDebits</stringProp><stringProp name="EXPECTED_VALUE">${expectedLedgerDebits}</stringProp><boolProp name="JSONVALIDATION">true</boolProp><boolProp name="EXPECT_NULL">false</boolProp><boolProp name="INVERT">false</boolProp><boolProp name="ISREGEX">false</boolProp></JSONPathAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="EXPECT final balance ${expectedFinalBalance}" enabled="true"><stringProp name="JSON_PATH">$.data.account.balance</stringProp><stringProp name="EXPECTED_VALUE">${expectedFinalBalance}</stringProp><boolProp name="JSONVALIDATION">true</boolProp><boolProp name="EXPECT_NULL">false</boolProp><boolProp name="INVERT">false</boolProp><boolProp name="ISREGEX">false</boolProp></JSONPathAssertion>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="VERIFY idempotent transfer applied once" enabled="true"><stringProp name="TestPlan.comments"></stringProp><elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true"><collectionProp name="Arguments.arguments"/></elementProp><stringProp name="HTTPSampler.path">/api/admin/state?accountId=ACC-1001</stringProp><stringProp name="HTTPSampler.method">GET</stringProp><boolProp name="HTTPSampler.follow_redirects">true</boolProp><boolProp name="HTTPSampler.auto_redirects">false</boolProp><boolProp name="HTTPSampler.use_keepalive">true</boolProp><boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp><stringProp name="HTTPSampler.embedded_url_re"></stringProp></HTTPSamplerProxy>
+<hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code = 200" enabled="true"><collectionProp name="Asserion.test_strings"><stringProp name="20499">200</stringProp></collectionProp><stringProp name="Assertion.custom_message"></stringProp><stringProp name="Assertion.test_field">Assertion.response_code</stringProp><boolProp name="Assertion.assume_success">false</boolProp><intProp name="Assertion.test_type">8</intProp></ResponseAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="EXPECT exactly 1 debit entry (no duplicate processing)" enabled="true"><stringProp name="JSON_PATH">$.data.withdrawals</stringProp><stringProp name="EXPECTED_VALUE">1</stringProp><boolProp name="JSONVALIDATION">true</boolProp><boolProp name="EXPECT_NULL">false</boolProp><boolProp name="INVERT">false</boolProp><boolProp name="ISREGEX">false</boolProp></JSONPathAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="EXPECT ledger debit total 50" enabled="true"><stringProp name="JSON_PATH">$.data.ledgerDebits</stringProp><stringProp name="EXPECTED_VALUE">50</stringProp><boolProp name="JSONVALIDATION">true</boolProp><boolProp name="EXPECT_NULL">false</boolProp><boolProp name="INVERT">false</boolProp><boolProp name="ISREGEX">false</boolProp></JSONPathAssertion>
+<hashTree>
+
+</hashTree>
+<JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="EXPECT balance 499950" enabled="true"><stringProp name="JSON_PATH">$.data.account.balance</stringProp><stringProp name="EXPECTED_VALUE">499950</stringProp><boolProp name="JSONVALIDATION">true</boolProp><boolProp name="EXPECT_NULL">false</boolProp><boolProp name="INVERT">false</boolProp><boolProp name="ISREGEX">false</boolProp></JSONPathAssertion>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+
+</hashTree>
+<ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true"><stringProp name="TestPlan.comments">Shows each racer's response and the verification assertions.</stringProp><boolProp name="ResultCollector.error_logging">false</boolProp><objProp><name>saveConfig</name><value class="SampleSaveConfiguration"><time>true</time><latency>true</latency><timestamp>true</timestamp><success>true</success><label>true</label><code>true</code><message>true</message><threadName>true</threadName><dataType>true</dataType><encoding>false</encoding><assertions>true</assertions><subresults>true</subresults><responseData>false</responseData><samplerData>false</samplerData><xml>false</xml><fieldNames>true</fieldNames><responseHeaders>false</responseHeaders><requestHeaders>false</requestHeaders><responseDataOnError>false</responseDataOnError><saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage><assertionsResultsToSave>0</assertionsResultsToSave><bytes>true</bytes><sentBytes>true</sentBytes><url>true</url><threadCounts>true</threadCounts><idleTime>true</idleTime><connectTime>true</connectTime></value></objProp><stringProp name="filename"></stringProp></ResultCollector>
+<hashTree>
+
+</hashTree>
+<ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true"><stringProp name="TestPlan.comments"></stringProp><boolProp name="ResultCollector.error_logging">false</boolProp><objProp><name>saveConfig</name><value class="SampleSaveConfiguration"><time>true</time><latency>true</latency><timestamp>true</timestamp><success>true</success><label>true</label><code>true</code><message>true</message><threadName>true</threadName><dataType>true</dataType><encoding>false</encoding><assertions>true</assertions><subresults>true</subresults><responseData>false</responseData><samplerData>false</samplerData><xml>false</xml><fieldNames>true</fieldNames><responseHeaders>false</responseHeaders><requestHeaders>false</requestHeaders><responseDataOnError>false</responseDataOnError><saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage><assertionsResultsToSave>0</assertionsResultsToSave><bytes>true</bytes><sentBytes>true</sentBytes><url>true</url><threadCounts>true</threadCounts><idleTime>true</idleTime><connectTime>true</connectTime></value></objProp><stringProp name="filename"></stringProp></ResultCollector>
+<hashTree>
+
+</hashTree>
+
+</hashTree>
+</hashTree>
+</jmeterTestPlan>

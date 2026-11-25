@@ -1,0 +1,13 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1795595823345,61,Reset mock state,200,OK,setUp - reset known state 1-1,text,true,,214,197,1,1,http://127.0.0.1:3000/api/admin/reset,55,0,33
+1795595823428,4,Set race account balance,200,OK,setUp - reset known state 1-1,text,true,,288,241,1,1,http://127.0.0.1:3000/api/admin/set-balance,4,0,0
+1795595823513,42,Login,200,OK,TG1 - Concurrent withdrawals (race) 1-1,text,true,,320,272,2,2,http://127.0.0.1:3000/api/auth/login,42,0,2
+1795595823516,49,Login,200,OK,TG1 - Concurrent withdrawals (race) 1-2,text,true,,320,272,2,2,http://127.0.0.1:3000/api/auth/login,49,0,1
+1795595823567,90,Withdraw (synchronised),200,OK,TG1 - Concurrent withdrawals (race) 1-2,text,true,,250,308,2,2,http://127.0.0.1:3000/api/accounts/ACC-RACE/withdraw?mode=safe,90,0,0
+1795595823567,147,Withdraw (synchronised),422,Unprocessable Entity,TG1 - Concurrent withdrawals (race) 1-1,text,true,,271,308,1,1,http://127.0.0.1:3000/api/accounts/ACC-RACE/withdraw?mode=safe,147,0,0
+1795595823730,30,Login,200,OK,TG2 - Duplicate submission with the same Idempotency-Key 2-2,text,true,,322,274,2,2,http://127.0.0.1:3000/api/auth/login,30,0,3
+1795595823733,43,Login,200,OK,TG2 - Duplicate submission with the same Idempotency-Key 2-1,text,true,,322,274,2,2,http://127.0.0.1:3000/api/auth/login,43,0,3
+1795595823778,47,Initiate Transfer (same Idempotency-Key),201,Created,TG2 - Duplicate submission with the same Idempotency-Key 2-1,text,true,,355,361,2,2,http://127.0.0.1:3000/api/transfers,47,0,0
+1795595823778,48,Initiate Transfer (same Idempotency-Key),200,OK,TG2 - Duplicate submission with the same Idempotency-Key 2-2,text,true,,350,361,2,2,http://127.0.0.1:3000/api/transfers,48,0,0
+1795595823844,3,VERIFY race account (out-of-band admin endpoint),200,OK,tearDown - independent verification of final state 1-1,text,true,,343,153,1,1,http://127.0.0.1:3000/api/admin/state?accountId=ACC-RACE,3,0,2
+1795595823849,2,VERIFY idempotent transfer applied once,200,OK,tearDown - independent verification of final state 1-1,text,true,,345,153,1,1,http://127.0.0.1:3000/api/admin/state?accountId=ACC-1001,2,0,0

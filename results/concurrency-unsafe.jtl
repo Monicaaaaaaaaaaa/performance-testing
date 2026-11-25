@@ -1,0 +1,13 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1795182014128,75,Reset mock state,200,OK,setUp - reset known state 1-1,text,true,,214,197,1,1,http://127.0.0.1:3000/api/admin/reset,62,0,40
+1795182014218,4,Set race account balance,200,OK,setUp - reset known state 1-1,text,true,,288,241,1,1,http://127.0.0.1:3000/api/admin/set-balance,3,0,0
+1795182014344,42,Login,200,OK,TG1 - Concurrent withdrawals (race) 1-2,text,true,,320,272,2,2,http://127.0.0.1:3000/api/auth/login,42,0,2
+1795182014344,43,Login,200,OK,TG1 - Concurrent withdrawals (race) 1-1,text,true,,320,272,2,2,http://127.0.0.1:3000/api/auth/login,43,0,2
+1795182014392,95,Withdraw (synchronised),200,OK,TG1 - Concurrent withdrawals (race) 1-2,text,true,,250,310,2,2,http://127.0.0.1:3000/api/accounts/ACC-RACE/withdraw?mode=unsafe,95,0,0
+1795182014392,95,Withdraw (synchronised),200,OK,TG1 - Concurrent withdrawals (race) 1-1,text,true,,250,310,2,2,http://127.0.0.1:3000/api/accounts/ACC-RACE/withdraw?mode=unsafe,95,0,0
+1795182014496,27,Login,200,OK,TG2 - Duplicate submission with the same Idempotency-Key 2-2,text,true,,322,274,2,2,http://127.0.0.1:3000/api/auth/login,27,0,1
+1795182014495,61,Login,200,OK,TG2 - Duplicate submission with the same Idempotency-Key 2-1,text,true,,322,274,2,2,http://127.0.0.1:3000/api/auth/login,61,0,2
+1795182014558,29,Initiate Transfer (same Idempotency-Key),201,Created,TG2 - Duplicate submission with the same Idempotency-Key 2-1,text,true,,355,361,2,2,http://127.0.0.1:3000/api/transfers,29,0,0
+1795182014558,45,Initiate Transfer (same Idempotency-Key),200,OK,TG2 - Duplicate submission with the same Idempotency-Key 2-2,text,true,,350,361,1,1,http://127.0.0.1:3000/api/transfers,44,0,0
+1795182014613,5,VERIFY race account (out-of-band admin endpoint),200,OK,tearDown - independent verification of final state 1-1,text,false,"Value in json path '$.data.withdrawals' expected to be '1', but found '2'",344,153,1,1,http://127.0.0.1:3000/api/admin/state?accountId=ACC-RACE,5,0,2
+1795182014620,2,VERIFY idempotent transfer applied once,200,OK,tearDown - independent verification of final state 1-1,text,true,,345,153,1,1,http://127.0.0.1:3000/api/admin/state?accountId=ACC-1001,2,0,0

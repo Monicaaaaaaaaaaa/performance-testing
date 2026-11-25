@@ -1,0 +1,31 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1795181420997,113,Login,200,OK,Main Workload 1-2,text,true,,322,274,3,3,http://127.0.0.1:3000/api/auth/login,113,0,44
+1795181420997,113,Login,200,OK,Main Workload 1-1,text,true,,322,274,3,3,http://127.0.0.1:3000/api/auth/login,113,0,44
+1795181421150,42,Login,200,OK,Main Workload 1-3,text,true,,322,274,3,3,http://127.0.0.1:3000/api/auth/login,42,0,2
+1795181421481,49,Get Profile,200,OK,Main Workload 1-1,text,true,,303,254,3,3,http://127.0.0.1:3000/api/users/101/profile,49,0,0
+1795181421481,50,Get Profile,200,OK,Main Workload 1-2,text,true,,304,254,3,3,http://127.0.0.1:3000/api/users/102/profile,50,0,0
+1795181421481,53,Get Profile,200,OK,Main Workload 1-3,text,true,,305,254,3,3,http://127.0.0.1:3000/api/users/103/profile,53,0,0
+1795181421739,34,Update Profile (PUT),200,OK,Main Workload 1-3,text,true,,305,297,3,3,http://127.0.0.1:3000/api/users/103/profile,34,0,0
+1795181421739,49,Update Profile (PUT),200,OK,Main Workload 1-2,text,true,,304,297,3,3,http://127.0.0.1:3000/api/users/102/profile,49,0,0
+1795181421739,50,Update Profile (PUT),200,OK,Main Workload 1-1,text,true,,303,297,3,3,http://127.0.0.1:3000/api/users/101/profile,50,0,0
+1795181421979,32,Get Account Balance,200,OK,Main Workload 1-3,text,true,,258,262,3,3,http://127.0.0.1:3000/api/accounts/ACC-1003/balance,32,0,0
+1795181421994,33,Get Account Balance,200,OK,Main Workload 1-2,text,true,,258,262,3,3,http://127.0.0.1:3000/api/accounts/ACC-1002/balance,33,0,0
+1795181421994,48,Get Account Balance,200,OK,Main Workload 1-1,text,true,,258,262,3,3,http://127.0.0.1:3000/api/accounts/ACC-1001/balance,48,0,0
+1795181422231,37,Get Transaction History,200,OK,Main Workload 1-2,text,true,,360,275,3,3,http://127.0.0.1:3000/api/accounts/ACC-1002/transactions?limit=5,37,0,0
+1795181422216,53,Get Transaction History,200,OK,Main Workload 1-3,text,true,,360,275,3,3,http://127.0.0.1:3000/api/accounts/ACC-1003/transactions?limit=5,53,0,0
+1795181422247,34,Get Transaction History,200,OK,Main Workload 1-1,text,true,,360,275,3,3,http://127.0.0.1:3000/api/accounts/ACC-1001/transactions?limit=5,34,0,0
+1795181423006,33,Initiate Transfer,201,Created,Main Workload 1-3,text,true,,355,383,3,3,http://127.0.0.1:3000/api/transfers,33,0,0
+1795181423005,37,Initiate Transfer,201,Created,Main Workload 1-2,text,true,,355,383,3,3,http://127.0.0.1:3000/api/transfers,37,0,0
+1795181423005,50,Initiate Transfer,201,Created,Main Workload 1-1,text,true,,355,383,3,3,http://127.0.0.1:3000/api/transfers,50,0,0
+1795181423245,33,Get Transfer Status,200,OK,Main Workload 1-2,text,true,,350,261,3,3,http://127.0.0.1:3000/api/transfers/TRF-354fcf6880,33,0,0
+1795181422269,70,Transfer Flow (Transaction Controller),200,"Number of samples in transaction : 2, number of failing samples : 0",Main Workload 1-2,,true,,705,644,3,3,null,70,941,0
+1795181423243,51,Get Transfer Status,200,OK,Main Workload 1-3,text,true,,350,261,3,3,http://127.0.0.1:3000/api/transfers/TRF-155728bbfb,51,0,0
+1795181422269,84,Transfer Flow (Transaction Controller),200,"Number of samples in transaction : 2, number of failing samples : 0",Main Workload 1-3,,true,,705,644,3,3,null,84,942,0
+1795181423262,48,Get Transfer Status,200,OK,Main Workload 1-1,text,true,,350,261,3,3,http://127.0.0.1:3000/api/transfers/TRF-8833d9ea73,48,0,0
+1795181422282,98,Transfer Flow (Transaction Controller),200,"Number of samples in transaction : 2, number of failing samples : 0",Main Workload 1-1,,true,,705,644,3,3,null,98,931,0
+1795181423483,57,Add Beneficiary (POST),201,Created,Main Workload 1-2,text,true,,287,321,3,3,http://127.0.0.1:3000/api/beneficiaries,57,0,0
+1795181423499,50,Add Beneficiary (POST),201,Created,Main Workload 1-3,text,true,,287,321,3,3,http://127.0.0.1:3000/api/beneficiaries,50,0,0
+1795181423516,42,Add Beneficiary (POST),201,Created,Main Workload 1-1,text,true,,287,321,3,3,http://127.0.0.1:3000/api/beneficiaries,42,0,0
+1795181423744,33,Delete Beneficiary (DELETE),200,OK,Main Workload 1-2,text,true,,247,285,3,3,http://127.0.0.1:3000/api/beneficiaries/BEN-5fa4eab8,33,0,0
+1795181423758,35,Delete Beneficiary (DELETE),200,OK,Main Workload 1-3,text,true,,247,285,2,2,http://127.0.0.1:3000/api/beneficiaries/BEN-a136fff7,35,0,0
+1795181423759,38,Delete Beneficiary (DELETE),200,OK,Main Workload 1-1,text,true,,247,285,1,1,http://127.0.0.1:3000/api/beneficiaries/BEN-d9bfe578,38,0,0
